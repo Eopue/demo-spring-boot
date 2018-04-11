@@ -31,4 +31,9 @@ public class UserServiceImpl implements UserService {
     public User selectByPrimaryKey(Long userId) {
         return userMapper.selectByPrimaryKey(userId);
     }
+
+    @Override
+    public boolean deleteByPrimaryKey(Long userId) {
+        return userMapper.deleteByPrimaryKey(userId) > 0;
+    }
 }

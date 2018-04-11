@@ -12,7 +12,26 @@ import cn.com.demo.pojo.User;
  * @date 2018/4/10
  */
 public interface UserService {
+    /**
+     * 查询all
+     *
+     * @return
+     */
     List<User> listUsers();
 
+    /**
+     * 根据主键查询用户
+     *
+     * @param userId
+     * @return
+     */
     User selectByPrimaryKey(Long userId);
+
+    /**
+     * 根据主键删除用户
+     *
+     * @param userId
+     * @return
+     */
+    boolean deleteByPrimaryKey(Long userId);
 }
