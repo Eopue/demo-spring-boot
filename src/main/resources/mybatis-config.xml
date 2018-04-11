@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+		<!-- 
+	<plugins>
+		指定数据库分页方言Dialect, 其它方言:OracleDialect,SQLServerDialect,SybaseDialect,DB2Dialect,
+		PostgreSQLDialect,MySQLDialect,DerbyDialect,HSQLDialect
+		<plugin interceptor="cn.gov.hnjt.yj.common.mybatis.OffsetLimitInterceptor">
+			<property name="dialectClass" value="cn.gov.hnjt.yj.common.mybatis.dialect.OracleDialect"/>
+		</plugin>
+	</plugins>
+		-->
+	<settings>
+		<!-- 将数据库字段命名规则A_COLUMN转换为Java使用的驼峰式命名规则aCloumn -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	<mappers>
+		<mapper resource="common_SqlMap.xml" />
+	</mappers>
+</configuration>

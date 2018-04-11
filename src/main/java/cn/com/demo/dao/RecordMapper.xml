@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.demo.dao.RecordMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.demo.pojo.Record" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="operate" property="operate" jdbcType="VARCHAR" />
+    <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="updated_dt" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="condition.operate != null" >
+         and operate = #{condition.operate}
+      </if>
+      <if test="condition.createdDt != null" >
+         and created_dt = #{condition.createdDt}
+      </if>
+      <if test="condition.createdBy != null" >
+         and created_by = #{condition.createdBy}
+      </if>
+      <if test="condition.updatedDt != null" >
+         and updated_dt = #{condition.updatedDt}
+      </if>
+      <if test="condition.updatedBy != null" >
+         and updated_by = #{condition.updatedBy}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, operate, created_dt, created_by, updated_dt, updated_by
+  </sql>
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="cn.com.demo.pojo.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_m_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_m_record
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_m_record
+    where id = #{id}
+  </delete>
+  <delete id="deleteByParams" parameterType="cn.com.demo.pojo.Criteria" >
+    delete from sys_m_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.com.demo.pojo.Record" >
+    insert into sys_m_record (id, operate, created_dt, created_by, updated_dt, updated_by
+      )
+    values (#{id}, #{operate}, #{createdDt}, #{createdBy}, #{updatedDt}, #{updatedBy}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.demo.pojo.Record" >
+    insert into sys_m_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="operate != null" >
+        operate,
+      </if>
+      <if test="createdDt != null" >
+        created_dt,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updatedDt != null" >
+        updated_dt,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="operate != null" >
+        #{operate},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByParams" parameterType="cn.com.demo.pojo.Criteria" resultType="java.lang.Integer" >
+    select count(*) from sys_m_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByParamsSelective" parameterType="map" >
+    update sys_m_record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id},
+      </if>
+      <if test="record.operate != null" >
+        operate = #{record.operate},
+      </if>
+      <if test="record.createdDt != null" >
+        created_dt = #{record.createdDt},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy},
+      </if>
+      <if test="record.updatedDt != null" >
+        updated_dt = #{record.updatedDt},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByParams" parameterType="map" >
+    update sys_m_record
+    set id = #{record.id},
+      operate = #{record.operate},
+      created_dt = #{record.createdDt},
+      created_by = #{record.createdBy},
+      updated_dt = #{record.updatedDt},
+      updated_by = #{record.updatedBy}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.demo.pojo.Record" >
+    update sys_m_record
+    <set >
+      <if test="operate != null" >
+        operate = #{operate},
+      </if>
+      <if test="createdDt != null" >
+        created_dt = #{createdDt},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy},
+      </if>
+      <if test="updatedDt != null" >
+        updated_dt = #{updatedDt},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.demo.pojo.Record" >
+    update sys_m_record
+    set operate = #{operate},
+      created_dt = #{createdDt},
+      created_by = #{createdBy},
+      updated_dt = #{updatedDt},
+      updated_by = #{updatedBy}
+    where id = #{id}
+  </update>
+</mapper>
