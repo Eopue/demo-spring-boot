@@ -51,8 +51,8 @@ public class UserController {
 
     @PostMapping
     public boolean createUser(@RequestBody User user) {
-        boolean create = userService.createUser(user);
+        boolean result = userService.createUser(user);
 
-        return create;
+        return result;
     }
 }
