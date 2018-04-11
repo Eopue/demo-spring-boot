@@ -36,4 +36,9 @@ public class UserServiceImpl implements UserService {
     public boolean deleteByPrimaryKey(Long userId) {
         return userMapper.deleteByPrimaryKey(userId) > 0;
     }
+
+    @Override
+    public boolean createUser(User user) {
+        return userMapper.insertSelective(user) > 0;
+    }
 }

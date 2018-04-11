@@ -34,4 +34,12 @@ public interface UserService {
      * @return
      */
     boolean deleteByPrimaryKey(Long userId);
+
+    /**
+     * 创建用户
+     *
+     * @param user
+     * @return
+     */
+    boolean createUser(User user);
 }
