@@ -1,10 +1,26 @@
 #��������
 spring:
   datasource:
+    name: demo
+    type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://47.93.25.215:3306/demo?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
+    minIdle: 1
+    maxActive: 200
+    initialSize: 1
+    timeBetweenEvictionRunsMillis: 3000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: false
+    maxPoolPreparedStatementPerConnectionSize: 20
+    connectionProperties: druid.stat.slowSqlMillis=5000
+    removeAbandoned: true
+    removeAbandonedTimeout: 3600
 
   mybatis:
     config-location: classpath:mybatis-config.xml
