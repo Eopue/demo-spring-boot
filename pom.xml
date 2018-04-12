@@ -57,7 +57,6 @@
     </dependencies>
 
     <build>
-        <finalName>demo</finalName>
         <resources>
             <resource>
                 <directory>src/main/java</directory>
