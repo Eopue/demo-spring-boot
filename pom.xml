@@ -50,9 +50,14 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>demo</finalName>
         <resources>
             <resource>
                 <directory>src/main/java</directory>
