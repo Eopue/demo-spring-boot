@@ -18,4 +18,4 @@ shiro:
 logging:
   level:
     cn.com.demo: trace
-    org.mybatis: warn
+    org.mybatis: info
