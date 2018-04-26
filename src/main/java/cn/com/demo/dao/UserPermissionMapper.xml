@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.demo.dao.UserPermissionMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.demo.pojo.UserPermissionKey" >
+    <id column="permission_sid" property="permissionSid" jdbcType="BIGINT" />
+    <id column="user_sid" property="userSid" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" />
+  </sql>
+  <sql id="Base_Column_List" >
+    permission_sid, user_sid
+  </sql>
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="cn.com.demo.pojo.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_m_user_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="common.Mysql_Pagination_Limit" />
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="cn.com.demo.pojo.UserPermissionKey" >
+    delete from sys_m_user_permission
+    where permission_sid = #{permissionSid}
+      and user_sid = #{userSid}
+  </delete>
+  <delete id="deleteByParams" parameterType="cn.com.demo.pojo.Criteria" >
+    delete from sys_m_user_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.com.demo.pojo.UserPermissionKey" >
+    insert into sys_m_user_permission (permission_sid, user_sid)
+    values (#{permissionSid}, #{userSid})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.demo.pojo.UserPermissionKey" >
+    insert into sys_m_user_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="permissionSid != null" >
+        permission_sid,
+      </if>
+      <if test="userSid != null" >
+        user_sid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="permissionSid != null" >
+        #{permissionSid},
+      </if>
+      <if test="userSid != null" >
+        #{userSid},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByParams" parameterType="cn.com.demo.pojo.Criteria" resultType="java.lang.Integer" >
+    select count(*) from sys_m_user_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByParamsSelective" parameterType="map" >
+    update sys_m_user_permission
+    <set >
+      <if test="record.permissionSid != null" >
+        permission_sid = #{record.permissionSid},
+      </if>
+      <if test="record.userSid != null" >
+        user_sid = #{record.userSid},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByParams" parameterType="map" >
+    update sys_m_user_permission
+    set permission_sid = #{record.permissionSid},
+      user_sid = #{record.userSid}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

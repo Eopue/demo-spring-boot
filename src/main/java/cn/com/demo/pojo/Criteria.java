@@ -38,6 +38,11 @@ public class Criteria {
         condition = new HashMap<String, Object>();
     }
 
+    public Criteria(String key, Object value) {
+        this();
+        condition.put(key, value);
+    }
+
     public void clear() {
         condition.clear();
         orderByClause = null;

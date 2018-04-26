@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.demo.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.demo.pojo.Role" >
+    <id column="ROLE_SID" property="roleSid" jdbcType="BIGINT" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="ROLE_TYPE" property="roleType" jdbcType="VARCHAR" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="condition.roleName != null" >
+         and ROLE_NAME = #{condition.roleName}
+      </if>
+      <if test="condition.roleDesc != null" >
+         and ROLE_DESC = #{condition.roleDesc}
+      </if>
+      <if test="condition.status != null" >
+         and STATUS = #{condition.status}
+      </if>
+      <if test="condition.roleType != null" >
+         and ROLE_TYPE = #{condition.roleType}
+      </if>
+      <if test="condition.createdBy != null" >
+         and CREATED_BY = #{condition.createdBy}
+      </if>
+      <if test="condition.createdDt != null" >
+         and CREATED_DT = #{condition.createdDt}
+      </if>
+      <if test="condition.updatedBy != null" >
+         and UPDATED_BY = #{condition.updatedBy}
+      </if>
+      <if test="condition.updatedDt != null" >
+         and UPDATED_DT = #{condition.updatedDt}
+      </if>
+      <if test="condition.version != null" >
+         and VERSION = #{condition.version}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Example_Where_Clause_Alias" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="condition.roleName != null" >
+        and A.ROLE_NAME = #{condition.roleName}
+      </if>
+      <if test="condition.roleDesc != null" >
+        and A.ROLE_DESC = #{condition.roleDesc}
+      </if>
+      <if test="condition.status != null" >
+        and A.STATUS = #{condition.status}
+      </if>
+      <if test="condition.roleType != null" >
+        and A.ROLE_TYPE = #{condition.roleType}
+      </if>
+      <if test="condition.createdBy != null" >
+        and A.CREATED_BY = #{condition.createdBy}
+      </if>
+      <if test="condition.createdDt != null" >
+        and A.CREATED_DT = #{condition.createdDt}
+      </if>
+      <if test="condition.updatedBy != null" >
+        and A.UPDATED_BY = #{condition.updatedBy}
+      </if>
+      <if test="condition.updatedDt != null" >
+        and A.UPDATED_DT = #{condition.updatedDt}
+      </if>
+      <if test="condition.version != null" >
+        and A.VERSION = #{condition.version}
+      </if>
+      <if test="condition.userName != null" >
+        and C.name = #{condition.userName}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Base_Column_List" >
+    ROLE_SID, ROLE_NAME, ROLE_DESC, STATUS, ROLE_TYPE, CREATED_BY, CREATED_DT, UPDATED_BY, 
+    UPDATED_DT, VERSION
+  </sql>
+  <sql id="Base_Column_List_Alias" >
+    A.ROLE_SID, A.ROLE_NAME, A.ROLE_DESC, A.STATUS, A.ROLE_TYPE, A.CREATED_BY, A.CREATED_DT,
+    A.UPDATED_BY, A.UPDATED_DT, A.VERSION
+  </sql>
+  <select id="findRolesByParams" resultMap="BaseResultMap" parameterType="cn.com.demo.pojo.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List_Alias" />
+    from sys_m_role A
+    INNER JOIN sys_m_user_role B on A.role_sid = B.role_sid
+    LEFT JOIN sys_m_user C on B.user_sid = C.id
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause_Alias" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="common.Mysql_Pagination_Limit" />
+  </select>
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="cn.com.demo.pojo.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_m_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="common.Mysql_Pagination_Limit" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_m_role
+    where ROLE_SID = #{roleSid}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_m_role
+    where ROLE_SID = #{roleSid}
+  </delete>
+  <delete id="deleteByParams" parameterType="cn.com.demo.pojo.Criteria" >
+    delete from sys_m_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.com.demo.pojo.Role" >
+    insert into sys_m_role (ROLE_SID, ROLE_NAME, ROLE_DESC, STATUS, ROLE_TYPE, CREATED_BY, 
+      CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION)
+    values (#{roleSid}, #{roleName}, #{roleDesc}, #{status}, #{roleType}, #{createdBy}, 
+      #{createdDt}, #{updatedBy}, #{updatedDt}, #{version})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.demo.pojo.Role" >
+    insert into sys_m_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleSid != null" >
+        ROLE_SID,
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME,
+      </if>
+      <if test="roleDesc != null" >
+        ROLE_DESC,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="roleType != null" >
+        ROLE_TYPE,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleSid != null" >
+        #{roleSid},
+      </if>
+      <if test="roleName != null" >
+        #{roleName},
+      </if>
+      <if test="roleDesc != null" >
+        #{roleDesc},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="roleType != null" >
+        #{roleType},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt},
+      </if>
+      <if test="version != null" >
+        #{version},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByParams" parameterType="cn.com.demo.pojo.Criteria" resultType="java.lang.Integer" >
+    select count(*) from sys_m_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByParamsSelective" parameterType="map" >
+    update sys_m_role
+    <set >
+      <if test="record.roleSid != null" >
+        ROLE_SID = #{record.roleSid},
+      </if>
+      <if test="record.roleName != null" >
+        ROLE_NAME = #{record.roleName},
+      </if>
+      <if test="record.roleDesc != null" >
+        ROLE_DESC = #{record.roleDesc},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status},
+      </if>
+      <if test="record.roleType != null" >
+        ROLE_TYPE = #{record.roleType},
+      </if>
+      <if test="record.createdBy != null" >
+        CREATED_BY = #{record.createdBy},
+      </if>
+      <if test="record.createdDt != null" >
+        CREATED_DT = #{record.createdDt},
+      </if>
+      <if test="record.updatedBy != null" >
+        UPDATED_BY = #{record.updatedBy},
+      </if>
+      <if test="record.updatedDt != null" >
+        UPDATED_DT = #{record.updatedDt},
+      </if>
+      <if test="record.version != null" >
+        VERSION = #{record.version},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByParams" parameterType="map" >
+    update sys_m_role
+    set ROLE_SID = #{record.roleSid},
+      ROLE_NAME = #{record.roleName},
+      ROLE_DESC = #{record.roleDesc},
+      STATUS = #{record.status},
+      ROLE_TYPE = #{record.roleType},
+      CREATED_BY = #{record.createdBy},
+      CREATED_DT = #{record.createdDt},
+      UPDATED_BY = #{record.updatedBy},
+      UPDATED_DT = #{record.updatedDt},
+      VERSION = #{record.version}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.demo.pojo.Role" >
+    update sys_m_role
+    <set >
+      <if test="roleName != null" >
+        ROLE_NAME = #{roleName},
+      </if>
+      <if test="roleDesc != null" >
+        ROLE_DESC = #{roleDesc},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="roleType != null" >
+        ROLE_TYPE = #{roleType},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy},
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT = #{createdDt},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version},
+      </if>
+    </set>
+    where ROLE_SID = #{roleSid}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.demo.pojo.Role" >
+    update sys_m_role
+    set ROLE_NAME = #{roleName},
+      ROLE_DESC = #{roleDesc},
+      STATUS = #{status},
+      ROLE_TYPE = #{roleType},
+      CREATED_BY = #{createdBy},
+      CREATED_DT = #{createdDt},
+      UPDATED_BY = #{updatedBy},
+      UPDATED_DT = #{updatedDt},
+      VERSION = #{version}
+    where ROLE_SID = #{roleSid}
+  </update>
+</mapper>

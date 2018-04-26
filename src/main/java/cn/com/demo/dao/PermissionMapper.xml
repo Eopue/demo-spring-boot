@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.demo.dao.PermissionMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.demo.pojo.Permission" >
+    <id column="permission_sid" property="permissionSid" jdbcType="BIGINT" />
+    <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+    <result column="permission_code" property="permissionCode" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="updated_dt" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="condition.permissionName != null" >
+         and permission_name = #{condition.permissionName}
+      </if>
+      <if test="condition.permissionCode != null" >
+         and permission_code = #{condition.permissionCode}
+      </if>
+      <if test="condition.createdBy != null" >
+         and created_by = #{condition.createdBy}
+      </if>
+      <if test="condition.createdDt != null" >
+         and created_dt = #{condition.createdDt}
+      </if>
+      <if test="condition.updatedBy != null" >
+         and updated_by = #{condition.updatedBy}
+      </if>
+      <if test="condition.updatedDt != null" >
+         and updated_dt = #{condition.updatedDt}
+      </if>
+      <if test="condition.version != null" >
+         and version = #{condition.version}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Example_Where_Clause_Alias" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="condition.permissionName != null" >
+        and A.permission_name = #{condition.permissionName}
+      </if>
+      <if test="condition.permissionCode != null" >
+        and A.permission_code = #{condition.permissionCode}
+      </if>
+      <if test="condition.createdBy != null" >
+        and A.created_by = #{condition.createdBy}
+      </if>
+      <if test="condition.createdDt != null" >
+        and A.created_dt = #{condition.createdDt}
+      </if>
+      <if test="condition.updatedBy != null" >
+        and A.updated_by = #{condition.updatedBy}
+      </if>
+      <if test="condition.updatedDt != null" >
+        and A.updated_dt = #{condition.updatedDt}
+      </if>
+      <if test="condition.version != null" >
+        and A.version = #{condition.version}
+      </if>
+      <if test="condition.userName != null" >
+        and C.name = #{condition.userName}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Base_Column_List" >
+    permission_sid, permission_name, permission_code, created_by, created_dt, updated_by, 
+    updated_dt, version
+  </sql>
+  <sql id="Base_Column_List_Alias" >
+    A.permission_sid, A.permission_name, A.permission_code, A.created_by, A.created_dt, A.updated_by,
+    A.updated_dt, A.version
+  </sql>
+  <select id="findPermissionsByParams" resultMap="BaseResultMap" parameterType="cn.com.demo.pojo.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List_Alias" />
+    from sys_m_permission A
+    INNER JOIN sys_m_user_permission B on A.permission_sid = B.permission_sid
+    LEFT JOIN sys_m_user C on B.user_sid = C.id
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause_Alias" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="common.Mysql_Pagination_Limit" />
+  </select>
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="cn.com.demo.pojo.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_m_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="common.Mysql_Pagination_Limit" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_m_permission
+    where permission_sid = #{permissionSid}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_m_permission
+    where permission_sid = #{permissionSid}
+  </delete>
+  <delete id="deleteByParams" parameterType="cn.com.demo.pojo.Criteria" >
+    delete from sys_m_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.com.demo.pojo.Permission" >
+    insert into sys_m_permission (permission_sid, permission_name, permission_code, created_by, created_dt, 
+      updated_by, updated_dt, version)
+    values (#{permissionSid}, #{permissionName}, #{permissionCode}, #{createdBy}, #{createdDt}, 
+      #{updatedBy}, #{updatedDt}, #{version})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.demo.pojo.Permission" >
+    insert into sys_m_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="permissionSid != null" >
+        permission_sid,
+      </if>
+      <if test="permissionName != null" >
+        permission_name,
+      </if>
+      <if test="permissionCode != null" >
+        permission_code,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="createdDt != null" >
+        created_dt,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+      <if test="updatedDt != null" >
+        updated_dt,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="permissionSid != null" >
+        #{permissionSid},
+      </if>
+      <if test="permissionName != null" >
+        #{permissionName},
+      </if>
+      <if test="permissionCode != null" >
+        #{permissionCode},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt},
+      </if>
+      <if test="version != null" >
+        #{version},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByParams" parameterType="cn.com.demo.pojo.Criteria" resultType="java.lang.Integer" >
+    select count(*) from sys_m_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByParamsSelective" parameterType="map" >
+    update sys_m_permission
+    <set >
+      <if test="record.permissionSid != null" >
+        permission_sid = #{record.permissionSid},
+      </if>
+      <if test="record.permissionName != null" >
+        permission_name = #{record.permissionName},
+      </if>
+      <if test="record.permissionCode != null" >
+        permission_code = #{record.permissionCode},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy},
+      </if>
+      <if test="record.createdDt != null" >
+        created_dt = #{record.createdDt},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy},
+      </if>
+      <if test="record.updatedDt != null" >
+        updated_dt = #{record.updatedDt},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByParams" parameterType="map" >
+    update sys_m_permission
+    set permission_sid = #{record.permissionSid},
+      permission_name = #{record.permissionName},
+      permission_code = #{record.permissionCode},
+      created_by = #{record.createdBy},
+      created_dt = #{record.createdDt},
+      updated_by = #{record.updatedBy},
+      updated_dt = #{record.updatedDt},
+      version = #{record.version}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.demo.pojo.Permission" >
+    update sys_m_permission
+    <set >
+      <if test="permissionName != null" >
+        permission_name = #{permissionName},
+      </if>
+      <if test="permissionCode != null" >
+        permission_code = #{permissionCode},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy},
+      </if>
+      <if test="createdDt != null" >
+        created_dt = #{createdDt},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy},
+      </if>
+      <if test="updatedDt != null" >
+        updated_dt = #{updatedDt},
+      </if>
+      <if test="version != null" >
+        version = #{version},
+      </if>
+    </set>
+    where permission_sid = #{permissionSid}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.demo.pojo.Permission" >
+    update sys_m_permission
+    set permission_name = #{permissionName},
+      permission_code = #{permissionCode},
+      created_by = #{createdBy},
+      created_dt = #{createdDt},
+      updated_by = #{updatedBy},
+      updated_dt = #{updatedDt},
+      version = #{version}
+    where permission_sid = #{permissionSid}
+  </update>
+</mapper>

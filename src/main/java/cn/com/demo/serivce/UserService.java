@@ -1,7 +1,9 @@
 package cn.com.demo.serivce;
 
 import java.util.List;
+import java.util.Set;
 
+import cn.com.demo.pojo.Criteria;
 import cn.com.demo.pojo.User;
 
 /**
@@ -42,4 +44,28 @@ public interface UserService {
      * @return
      */
     boolean createUser(User user);
+
+    /**
+     * 根据用户名称查询用户角色
+     *
+     * @param userName
+     * @return
+     */
+    Set<String> findRolesByUserName(String userName);
+
+    /**
+     * 根据用户名查询用户权限
+     *
+     * @param userName
+     * @return
+     */
+    Set<String> findPermissionaByUserName(String userName);
+
+    /**
+     * 根据条件查询用户列表
+     *
+     * @param criteria
+     * @return
+     */
+    List<User> selectByParams(Criteria criteria);
 }
