@@ -1,4 +1,5 @@
-#��������
+server:
+  port: 8099
 spring:
   datasource:
     name: demo
@@ -7,22 +8,14 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
-    minIdle: 1
-    maxActive: 200
-    initialSize: 1
-    timeBetweenEvictionRunsMillis: 3000
-    minEvictableIdleTimeMillis: 300000
-    validationQuery: SELECT 1
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-    poolPreparedStatements: false
-    maxPoolPreparedStatementPerConnectionSize: 20
-    connectionProperties: druid.stat.slowSqlMillis=5000
-    removeAbandoned: true
-    removeAbandonedTimeout: 3600
 
-  mybatis:
-    config-location: classpath:mybatis-config.xml
-    mapperLocations: classpath*:cn/com/demo/dao/*.xml
-    typeAliasesPackage: cn.com.demo.pojo
+mybatis:
+  config-location: classpath:mybatis-config.xml
+
+shiro:
+    configLocation: classpath:ehcache-shiro.xml
+
+logging:
+  level:
+    cn.com.demo: trace
+    org.mybatis: warn

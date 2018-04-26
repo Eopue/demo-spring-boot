@@ -11,10 +11,10 @@ import org.apache.shiro.realm.AuthenticatingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.apache.shiro.util.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-import javax.annotation.Resource;
 
 import cn.com.demo.pojo.Criteria;
 import cn.com.demo.pojo.User;
@@ -27,8 +27,10 @@ import cn.com.demo.serivce.UserService;
  * @author Xiaolu.Liu
  * @date 2018/4/26
  */
+@Repository
 public class UserRealm extends AuthenticatingRealm {
-    @Resource
+
+    @Autowired
     private UserService userService;
 
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -42,8 +44,8 @@ public class UserRealm extends AuthenticatingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = (String)token.getPrincipal();
-        List<User> user = userService.selectByParams(new Criteria("userName", username));
-        if(CollectionUtils.isEmpty(user)) {
+        List<User> user = userService.selectByParams(new Criteria("name", username));
+        if (CollectionUtils.isEmpty(user)) {
             //没找到帐号
             throw new UnknownAccountException();
         }
@@ -54,7 +56,7 @@ public class UserRealm extends AuthenticatingRealm {
                 //密码
                 user.get(0).getPassword(),
                 //salt=username+salt
-                ByteSource.Util.bytes(user.get(0).getName() + user.get(0).getPassword()),
+                ByteSource.Util.bytes(user.get(0).getName()),
                 //realm name
                 getName()
         );

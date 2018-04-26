@@ -1,11 +1,15 @@
 package cn.com.demo.dao;
 
-import cn.com.demo.pojo.Criteria;
-import cn.com.demo.pojo.UserPermissionKey;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Map;
-import org.apache.ibatis.annotations.Param;
 
+import cn.com.demo.pojo.Criteria;
+import cn.com.demo.pojo.UserPermissionKey;
+
+@Repository
 public interface UserPermissionMapper {
     /**
      * 根据条件查询记录总数

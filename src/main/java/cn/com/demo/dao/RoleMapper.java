@@ -1,6 +1,7 @@
 package cn.com.demo.dao;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.Map;
 import cn.com.demo.pojo.Criteria;
 import cn.com.demo.pojo.Role;
 
+@Repository
 public interface RoleMapper {
     /**
      * 根据条件查询记录总数

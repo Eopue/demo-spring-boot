@@ -1,11 +1,15 @@
 package cn.com.demo.dao;
 
-import cn.com.demo.pojo.Criteria;
-import cn.com.demo.pojo.UserRoleKey;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Map;
-import org.apache.ibatis.annotations.Param;
 
+import cn.com.demo.pojo.Criteria;
+import cn.com.demo.pojo.UserRoleKey;
+
+@Repository
 public interface UserRoleMapper {
     /**
      * 根据条件查询记录总数

@@ -10,7 +10,6 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +31,6 @@ import cn.com.demo.serivce.UserService;
  * @date 2018/4/10
  */
 @RestController
-@EnableAutoConfiguration
 @RequestMapping("/users")
 public class UserController {
     @Autowired
@@ -58,12 +56,19 @@ public class UserController {
         return result;
     }
 
+    @PostMapping
+    public boolean createUser(@RequestBody User user) {
+        boolean result = userService.createUser(user);
+
+        return result;
+    }
+
     @PostMapping("/login")
     public boolean login(@RequestBody User user) {
         //1、获取SecurityManager工厂，此处使用Ini配置文件初始化SecurityManager
         Factory<SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiro.ini");
         //2、得到SecurityManager实例 并绑定给SecurityUtils
-        org.apache.shiro.mgt.SecurityManager securityManager = factory.getInstance();
+        SecurityManager securityManager = factory.getInstance();
         SecurityUtils.setSecurityManager(securityManager);
         //3、得到Subject及创建用户名/密码身份验证Token（即用户身份/凭证）
         Subject subject = SecurityUtils.getSubject();
