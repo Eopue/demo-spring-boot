@@ -3,6 +3,7 @@ package cn.com.demo.controller;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.config.IniSecurityManagerFactory;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.List;
 
 import cn.com.demo.helper.PasswordHelper;
@@ -92,6 +95,7 @@ public class UserController {
         return subject.isAuthenticated();
     }
 
+    @RequiresPermissions("admin")
     @PostMapping("/logout")
     public boolean logout() {
         Subject subject = SecurityUtils.getSubject();
@@ -100,6 +104,7 @@ public class UserController {
             subject.logout();
         }
 
+        logger.info("退出成功，时间[{}]", Calendar.getInstance().getTime().toInstant().atZone(ZoneId.systemDefault()));
         return Boolean.TRUE;
     }
 }

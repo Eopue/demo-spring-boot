@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50710
 File Encoding         : 65001
 
-Date: 2018-08-31 15:57:51
+Date: 2018-08-31 17:45:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,6 +32,11 @@ CREATE TABLE `sys_m_permission` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of sys_m_permission
+-- ----------------------------
+INSERT INTO `sys_m_permission` VALUES ('1', 'admin', 'admin', 'liuxiaolu', '2018-08-31 17:39:29', 'liuxiaolu', '2018-08-31 17:39:35', '1');
+
+-- ----------------------------
 -- Table structure for sys_m_record
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_m_record`;
@@ -47,11 +52,15 @@ CREATE TABLE `sys_m_record` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of sys_m_record
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sys_m_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_m_role`;
 CREATE TABLE `sys_m_role` (
-  `role_sid` bigint(20) NOT NULL,
+  `role_sid` bigint(20) NOT NULL AUTO_INCREMENT,
   `role_name` varchar(16) DEFAULT NULL,
   `role_desc` varchar(64) DEFAULT NULL,
   `role_type` varchar(16) DEFAULT NULL,
@@ -61,7 +70,12 @@ CREATE TABLE `sys_m_role` (
   `updated_dt` datetime DEFAULT NULL,
   `version` bigint(9) DEFAULT NULL,
   PRIMARY KEY (`role_sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_m_role
+-- ----------------------------
+INSERT INTO `sys_m_role` VALUES ('1', 'admin', 'admin', '01', 'liuxiaolu', '2018-08-31 17:29:10', 'liuxiaolu', '2018-08-31 17:29:17', '1');
 
 -- ----------------------------
 -- Table structure for sys_m_user
@@ -78,7 +92,12 @@ CREATE TABLE `sys_m_user` (
   `updated_dt` datetime DEFAULT NULL,
   `version` bigint(9) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_m_user
+-- ----------------------------
+INSERT INTO `sys_m_user` VALUES ('1', 'liuxiaolu', '12c6ab2100060239bca85f4bc3bb32dc', '13618375618', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for sys_m_user_permission
@@ -91,6 +110,11 @@ CREATE TABLE `sys_m_user_permission` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of sys_m_user_permission
+-- ----------------------------
+INSERT INTO `sys_m_user_permission` VALUES ('1', '1');
+
+-- ----------------------------
 -- Table structure for sys_m_user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_m_user_role`;
@@ -99,3 +123,8 @@ CREATE TABLE `sys_m_user_role` (
   `user_sid` bigint(20) NOT NULL,
   PRIMARY KEY (`role_sid`,`user_sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_m_user_role
+-- ----------------------------
+INSERT INTO `sys_m_user_role` VALUES ('1', '1');

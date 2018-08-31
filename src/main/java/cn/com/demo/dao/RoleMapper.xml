@@ -79,11 +79,11 @@
     </trim>
   </sql>
   <sql id="Base_Column_List" >
-    ROLE_SID, ROLE_NAME, ROLE_DESC, STATUS, ROLE_TYPE, CREATED_BY, CREATED_DT, UPDATED_BY, 
+    ROLE_SID, ROLE_NAME, ROLE_DESC, ROLE_TYPE, CREATED_BY, CREATED_DT, UPDATED_BY,
     UPDATED_DT, VERSION
   </sql>
   <sql id="Base_Column_List_Alias" >
-    A.ROLE_SID, A.ROLE_NAME, A.ROLE_DESC, A.STATUS, A.ROLE_TYPE, A.CREATED_BY, A.CREATED_DT,
+    A.ROLE_SID, A.ROLE_NAME, A.ROLE_DESC, A.ROLE_TYPE, A.CREATED_BY, A.CREATED_DT,
     A.UPDATED_BY, A.UPDATED_DT, A.VERSION
   </sql>
   <select id="findRolesByParams" resultMap="BaseResultMap" parameterType="cn.com.demo.pojo.Criteria" >
