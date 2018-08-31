@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import cn.com.demo.dao.PermissionMapper;
 import cn.com.demo.dao.RoleMapper;
 import cn.com.demo.dao.UserMapper;
+import cn.com.demo.helper.PasswordHelper;
 import cn.com.demo.pojo.Criteria;
 import cn.com.demo.pojo.Permission;
 import cn.com.demo.pojo.Role;
@@ -53,6 +54,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean createUser(User user) {
+        // 用户密码加密
+        PasswordHelper.encryptPassword(user);
+
         return userMapper.insertSelective(user) > 0;
     }
 

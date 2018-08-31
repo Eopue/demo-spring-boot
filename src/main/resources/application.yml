@@ -17,5 +17,5 @@ shiro:
 
 logging:
   level:
-    cn.com.demo: info
+    cn.com.demo: debug
     org.mybatis: info

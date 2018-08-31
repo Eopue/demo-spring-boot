@@ -14,9 +14,11 @@ import cn.com.demo.pojo.User;
  */
 public class PasswordHelper {
     private static final int hashIterations = 2;
+    private static final String algorithmName = "md5";
+
     public static void encryptPassword(User user) {
         String newPassword = new SimpleHash(
-                user.getName(),
+                algorithmName,
                 user.getPassword(),
                 ByteSource.Util.bytes(user.getName()),
                 hashIterations).toHex();
