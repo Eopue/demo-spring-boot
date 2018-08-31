@@ -5,6 +5,7 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthenticatingRealm;
@@ -43,8 +44,10 @@ public class UserRealm extends AuthenticatingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        String username = (String)token.getPrincipal();
-        List<User> user = userService.selectByParams(new Criteria("name", username));
+        UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
+        Criteria criteria = new Criteria("name", usernamePasswordToken.getUsername());
+        criteria.put("password", String.valueOf(usernamePasswordToken.getPassword()));
+        List<User> user = userService.selectByParams(criteria);
         if (CollectionUtils.isEmpty(user)) {
             //没找到帐号
             throw new UnknownAccountException();
