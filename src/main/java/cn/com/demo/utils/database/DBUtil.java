@@ -2,10 +2,11 @@
  * Copyright (c) 2018 Cloud-Star, Inc. All Rights Reserved..
  */
 
-package cn.com.demo.utils;
+package cn.com.demo.utils.database;
 
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.support.json.JSONUtils;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -14,10 +15,15 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
+import cn.com.demo.utils.file.ClassLoaderUtil;
 
 /**
  * 简易DB工具类
@@ -34,29 +40,43 @@ public class DBUtil {
         Properties p = new Properties();
 
         /* 数据库用户名 */
-        String user = "root";
+        String user = null;
         /* 数据库密码 */
-        String password = "123456";
+        String password = null;
         /* 数据库连接 */
-        String url = "jdbc:mysql://47.93.25.215:3306/demo?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false";
+        String url = null;
 
-        DruidDataSource druidDataSource = new DruidDataSource();
-        druidDataSource.setUrl(url);
-        druidDataSource.setUsername(user);
-        druidDataSource.setPassword(password);
-        druidDataSource.setTestOnBorrow(false);
-        druidDataSource.setTestOnReturn(false);
-        druidDataSource.setTestWhileIdle(true);
-        druidDataSource.setValidationQuery("select 'x'");
-        druidDataSource.setMaxActive(20);
-        druidDataSource.setMinIdle(1);
-        druidDataSource.setPoolPreparedStatements(false);
-        druidDataSource.setTimeBetweenEvictionRunsMillis(60 * 1000);
-        druidDataSource.setMinEvictableIdleTimeMillis(300000);
-        druidDataSource.setRemoveAbandoned(true);
-        druidDataSource.setRemoveAbandonedTimeout(3600);
+        // 获取环境变量设置的数据库连接参数
+        InputStream is = ClassLoaderUtil.getResourceAsStream("propertites/jdbc.properties", DBUtil.class);
+        try (InputStreamReader reader = new InputStreamReader(is, "UTF-8")) {
+            p.load(reader);
+            /* 数据库用户名 */
+            user = p.getProperty("jdbc.username");
+            /* 数据库密码 */
+            password = p.getProperty("jdbc.password");
+            /* 数据库连接 */
+            url = p.getProperty("jdbc.url");
 
-        runner = new QueryRunner(druidDataSource);
+            DruidDataSource druidDataSource = new DruidDataSource();
+            druidDataSource.setUrl(url);
+            druidDataSource.setUsername(user);
+            druidDataSource.setPassword(password);
+            druidDataSource.setTestOnBorrow(false);
+            druidDataSource.setTestOnReturn(false);
+            druidDataSource.setTestWhileIdle(true);
+            druidDataSource.setValidationQuery("select 'x'");
+            druidDataSource.setMaxActive(20);
+            druidDataSource.setMinIdle(1);
+            druidDataSource.setPoolPreparedStatements(false);
+            druidDataSource.setTimeBetweenEvictionRunsMillis(60 * 1000);
+            druidDataSource.setMinEvictableIdleTimeMillis(300000);
+            druidDataSource.setRemoveAbandoned(true);
+            druidDataSource.setRemoveAbandonedTimeout(3600);
+
+            runner = new QueryRunner(druidDataSource);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -154,4 +174,9 @@ public class DBUtil {
         return result;
     }
 
+    public static void main(String[] args) {
+        Map map = DBUtil.queryMap("select * from sys_m_user where 1 = ?", 1);
+
+        System.out.println(JSONUtils.toJSONString(map));
+    }
 }

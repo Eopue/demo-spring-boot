@@ -3,7 +3,6 @@ package cn.com.demo.controller;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.config.IniSecurityManagerFactory;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
@@ -95,7 +94,6 @@ public class UserController {
         return subject.isAuthenticated();
     }
 
-    @RequiresPermissions("admin")
     @PostMapping("/logout")
     public boolean logout() {
         Subject subject = SecurityUtils.getSubject();
