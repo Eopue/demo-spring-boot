@@ -14,6 +14,8 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.servlet.Filter;
+
 /**
  * The type ShiroConfiguration.
  * <p>
@@ -45,6 +47,7 @@ public class ShiroConfiguration {
     public LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
     }
+
     @Bean
     public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator daap = new DefaultAdvisorAutoProxyCreator();
@@ -66,19 +69,24 @@ public class ShiroConfiguration {
         return new AuthorizationAttributeSourceAdvisor();
     }
 
-    /**
-     * 加载shiroFilter权限控制规则（从数据库读取然后配置)
-     */
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(UserRealm userRealm) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager(userRealm));
+
+        //自定义拦截器
+        Map<String, Filter> filtersMap = new LinkedHashMap<>();
+        filtersMap.put("statelessAuthFilter", new StatelessAuthFilter());
+        shiroFilterFactoryBean.setFilters(filtersMap);
+
         shiroFilterFactoryBean.setLoginUrl("/login");
-        shiroFilterFactoryBean.setSuccessUrl("/login_enter");
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
-        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-        filterChainDefinitionMap.put("/test", "anon");
-        filterChainDefinitionMap.put("/bbbb", "authc,perms[emp]");
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+
+        filterChainDefinitionMap.put("/users/login", "anon");
+        filterChainDefinitionMap.put("/users/logout", "anon");
+        filterChainDefinitionMap.put("/**", "statelessAuthFilter");
+
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

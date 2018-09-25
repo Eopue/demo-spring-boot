@@ -128,3 +128,34 @@ CREATE TABLE `sys_m_user_role` (
 -- Records of sys_m_user_role
 -- ----------------------------
 INSERT INTO `sys_m_user_role` VALUES ('1', '1');
+
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : 47.105.112.226
+Source Server Version : 50723
+Source Host           : 47.105.112.226:3306
+Source Database       : demo
+
+Target Server Type    : MYSQL
+Target Server Version : 50723
+File Encoding         : 65001
+
+Date: 2018-09-25 23:12:28
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for sys_m_user_token
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_m_user_token`;
+CREATE TABLE `sys_m_user_token` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(36) DEFAULT NULL,
+  `user_sid` bigint(20) DEFAULT NULL,
+  `access_token` varchar(1024) DEFAULT NULL,
+  `access_expire` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

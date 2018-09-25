@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.demo.dao.UserTokenMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.demo.pojo.UserToken" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="user_sid" property="userSid" jdbcType="BIGINT" />
+    <result column="access_token" property="accessToken" jdbcType="VARCHAR" />
+    <result column="access_expire" property="accessExpire" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="condition.uuid != null" >
+         and uuid = #{condition.uuid}
+      </if>
+      <if test="condition.userSid != null" >
+         and user_sid = #{condition.userSid}
+      </if>
+      <if test="condition.accessToken != null" >
+         and access_token = #{condition.accessToken}
+      </if>
+      <if test="condition.accessExpire != null" >
+         and access_expire = #{condition.accessExpire}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, uuid, user_sid, access_token, access_expire
+  </sql>
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="cn.com.demo.pojo.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_m_user_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="common.Mysql_Pagination_Limit" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_m_user_token
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_m_user_token
+    where id = #{id}
+  </delete>
+  <delete id="deleteByParams" parameterType="cn.com.demo.pojo.Criteria" >
+    delete from sys_m_user_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.com.demo.pojo.UserToken" >
+    insert into sys_m_user_token (id, uuid, user_sid, access_token, access_expire)
+    values (#{id}, #{uuid}, #{userSid}, #{accessToken}, #{accessExpire})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.demo.pojo.UserToken" >
+    insert into sys_m_user_token
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="userSid != null" >
+        user_sid,
+      </if>
+      <if test="accessToken != null" >
+        access_token,
+      </if>
+      <if test="accessExpire != null" >
+        access_expire,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="uuid != null" >
+        #{uuid},
+      </if>
+      <if test="userSid != null" >
+        #{userSid},
+      </if>
+      <if test="accessToken != null" >
+        #{accessToken},
+      </if>
+      <if test="accessExpire != null" >
+        #{accessExpire},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByParams" parameterType="cn.com.demo.pojo.Criteria" resultType="java.lang.Integer" >
+    select count(*) from sys_m_user_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByParamsSelective" parameterType="map" >
+    update sys_m_user_token
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id},
+      </if>
+      <if test="record.uuid != null" >
+        uuid = #{record.uuid},
+      </if>
+      <if test="record.userSid != null" >
+        user_sid = #{record.userSid},
+      </if>
+      <if test="record.accessToken != null" >
+        access_token = #{record.accessToken},
+      </if>
+      <if test="record.accessExpire != null" >
+        access_expire = #{record.accessExpire},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByParams" parameterType="map" >
+    update sys_m_user_token
+    set id = #{record.id},
+      uuid = #{record.uuid},
+      user_sid = #{record.userSid},
+      access_token = #{record.accessToken},
+      access_expire = #{record.accessExpire}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.demo.pojo.UserToken" >
+    update sys_m_user_token
+    <set >
+      <if test="uuid != null" >
+        uuid = #{uuid},
+      </if>
+      <if test="userSid != null" >
+        user_sid = #{userSid},
+      </if>
+      <if test="accessToken != null" >
+        access_token = #{accessToken},
+      </if>
+      <if test="accessExpire != null" >
+        access_expire = #{accessExpire},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.demo.pojo.UserToken" >
+    update sys_m_user_token
+    set uuid = #{uuid},
+      user_sid = #{userSid},
+      access_token = #{accessToken},
+      access_expire = #{accessExpire}
+    where id = #{id}
+  </update>
+</mapper>

@@ -1,12 +1,9 @@
 package cn.com.demo.controller;
 
+import com.google.common.collect.ImmutableMap;
+
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.config.IniSecurityManagerFactory;
-import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.util.Factory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +19,10 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.List;
 
-import cn.com.demo.helper.PasswordHelper;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import cn.com.demo.pojo.RestResult;
 import cn.com.demo.pojo.User;
 import cn.com.demo.serivce.UserService;
 
@@ -42,67 +42,47 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable("id") Long userId) {
+    public RestResult getUser(@PathVariable("id") Long userId) {
         User user = userService.selectByPrimaryKey(userId);
-        return user;
+
+        return new RestResult(user);
     }
 
     @GetMapping
-    public List<User> listUsers() {
+    public RestResult listUsers() {
         List<User> users = userService.listUsers();
 
-        return users;
+        return new RestResult(users);
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteUser(@PathVariable("id") Long userId) {
+    public RestResult deleteUser(@PathVariable("id") Long userId) {
         boolean result = userService.deleteByPrimaryKey(userId);
 
-        return result;
+        return new RestResult(result);
     }
 
     @PostMapping
-    public boolean createUser(@RequestBody User user) {
+    public RestResult createUser(@RequestBody User user) {
         boolean result = userService.createUser(user);
 
-        return result;
+        return new RestResult(result);
     }
 
     @PostMapping("/login")
-    public boolean login(@RequestBody User user) {
-        // 1. 获取SecurityManager工厂，此处使用Ini配置文件初始化SecurityManager
-        Factory<SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiro.ini");
+    public RestResult login(@RequestBody User user) {
+        RestResult restResult = userService.login(user);
 
-        // 2. 得到SecurityManager实例 并绑定给SecurityUtils
-        SecurityManager securityManager = factory.getInstance();
-        SecurityUtils.setSecurityManager(securityManager);
-
-        // 3. 得到Subject及创建用户名/密码身份验证Token（即用户身份/凭证）
-        Subject subject = SecurityUtils.getSubject();
-
-        // 4. 得到加密后的密码
-        PasswordHelper.encryptPassword(user);
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getName(), user.getPassword());
-        try {
-            // 5. 登录，即身份验证
-            subject.login(token);
-        } catch (AuthenticationException e) {
-            // 6. 身份验证失败
-            logger.error("Authenticate failed.");
-        }
-
-        return subject.isAuthenticated();
+        return new RestResult(restResult);
     }
 
     @PostMapping("/logout")
-    public boolean logout() {
+    public RestResult logout(HttpServletRequest servletRequest, HttpServletResponse response) {
         Subject subject = SecurityUtils.getSubject();
 
-        if (subject != null) {
-            subject.logout();
-        }
+        userService.clearCookie(servletRequest, response, subject);
 
         logger.info("退出成功，时间[{}]", Calendar.getInstance().getTime().toInstant().atZone(ZoneId.systemDefault()));
-        return Boolean.TRUE;
+        return new RestResult(ImmutableMap.of("result", true));
     }
 }
