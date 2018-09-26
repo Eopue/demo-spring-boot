@@ -3,6 +3,7 @@ package cn.com.demo.controller;
 import com.google.common.collect.ImmutableMap;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +56,7 @@ public class UserController {
         return new RestResult(users);
     }
 
+    @RequiresPermissions("delete")
     @DeleteMapping("/{id}")
     public RestResult deleteUser(@PathVariable("id") Long userId) {
         boolean result = userService.deleteByPrimaryKey(userId);
@@ -62,6 +64,7 @@ public class UserController {
         return new RestResult(result);
     }
 
+    @RequiresPermissions("add")
     @PostMapping
     public RestResult createUser(@RequestBody User user) {
         boolean result = userService.createUser(user);

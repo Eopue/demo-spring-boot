@@ -34,7 +34,8 @@ CREATE TABLE `sys_m_permission` (
 -- ----------------------------
 -- Records of sys_m_permission
 -- ----------------------------
-INSERT INTO `sys_m_permission` VALUES ('1', 'admin', 'admin', 'liuxiaolu', '2018-08-31 17:39:29', 'liuxiaolu', '2018-08-31 17:39:35', '1');
+INSERT INTO `sys_m_permission` VALUES ('1', 'delete', 'delete', 'liuxiaolu', '2018-08-31 17:39:29', 'liuxiaolu', '2018-08-31 17:39:35', '1');
+INSERT INTO `sys_m_permission` VALUES ('1', 'add', 'add', 'liuxiaolu', '2018-08-31 17:39:29', 'liuxiaolu', '2018-08-31 17:39:35', '1');
 
 -- ----------------------------
 -- Table structure for sys_m_record
@@ -113,7 +114,7 @@ CREATE TABLE `sys_m_user_permission` (
 -- Records of sys_m_user_permission
 -- ----------------------------
 INSERT INTO `sys_m_user_permission` VALUES ('1', '1');
-
+INSERT INTO `sys_m_user_permission` VALUES ('2', '1');
 -- ----------------------------
 -- Table structure for sys_m_user_role
 -- ----------------------------
