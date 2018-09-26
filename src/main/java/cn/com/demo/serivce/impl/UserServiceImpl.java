@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
         // 1. 得到加密后的密码
         PasswordHelper.encryptPassword(user);
 
-        // 2. 用户登录
+        // 2. 用户信息验证
         Criteria criteria = new Criteria();
         criteria.put("name", user.getName());
         criteria.put("password", user.getPassword());

@@ -74,6 +74,12 @@ public class UserRealm extends AuthorizingRealm {
         }
     }
 
+    /**
+     * 验证token
+     *
+     * @param statelessToken statelessToken
+     * @return AuthenticationInfo
+     */
     private AuthenticationInfo getAuthenticationInfo(StatelessToken statelessToken) {
         //2.如果token存在，拿出token信息验证过期时间等
         final Claims claims;
@@ -92,6 +98,12 @@ public class UserRealm extends AuthorizingRealm {
         return new SimpleAuthenticationInfo(statelessToken.getUsername(), statelessToken.getToken(), getName());
     }
 
+    /**
+     * 给当前用户注入角色和权限
+     *
+     * @param principalCollection principalCollection
+     * @return AuthorizationInfo
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         // 1. 获取当前登录的用户名
@@ -113,6 +125,12 @@ public class UserRealm extends AuthorizingRealm {
 
     }
 
+    /**
+     * 预检测token类型，默认不检测，支持所有
+     *
+     * @param token token
+     * @return true
+     */
     @Override
     public boolean supports(AuthenticationToken token) {
         return true;
