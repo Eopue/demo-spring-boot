@@ -6,3 +6,4 @@
 + 技术框架
   spring mvc + mybatis, redis
 + 阿里云服务器支撑
++ 关于打包，idea请选择从core模块打包，并手动填写打包命令package -Dmaven.test.skip=true

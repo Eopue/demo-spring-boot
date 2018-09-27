@@ -7,7 +7,7 @@
     <groupId>cn.com</groupId>
     <artifactId>demo</artifactId>
     <version>0.0.1</version>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
 
     <name>demo</name>
     <description>Demo project for Spring Boot</description>
@@ -19,6 +19,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <modules>
+        <module>core</module>
+    </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -131,36 +134,5 @@
             <version>3.4</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <finalName>demo</finalName>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <filtering>false</filtering>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*.yml</include>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                    <include>**/*.json</include>
-                    <include>**/*.ini</include>
-                </includes>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
 
 </project>
