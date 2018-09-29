@@ -32,7 +32,7 @@ import cn.com.demo.serivce.UserService;
 import cn.com.demo.shiro.StatelessToken;
 import cn.com.demo.shiro.auth.AuthService;
 import cn.com.demo.shiro.constants.AuthConstants;
-import cn.com.demo.utils.token.RequestContextUtil;
+import cn.com.demo.token.RequestContextUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;

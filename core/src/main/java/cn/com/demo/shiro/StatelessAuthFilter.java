@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.com.demo.pojo.User;
-import cn.com.demo.utils.token.RequestContextUtil;
+import cn.com.demo.token.RequestContextUtil;
 
 /**
  * The type StatelessAuthFilter.

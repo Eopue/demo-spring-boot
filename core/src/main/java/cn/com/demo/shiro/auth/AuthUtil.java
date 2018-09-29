@@ -1,7 +1,7 @@
 package cn.com.demo.shiro.auth;
 
 import cn.com.demo.pojo.User;
-import cn.com.demo.utils.token.RequestContextUtil;
+import cn.com.demo.token.RequestContextUtil;
 
 /**
  * The type AuthUtil.

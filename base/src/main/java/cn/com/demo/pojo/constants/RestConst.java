@@ -1,4 +1,4 @@
-package cn.com.demo.shiro.constants;
+package cn.com.demo.pojo.constants;
 
 /**
  * 异常的定义类

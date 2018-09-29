@@ -2,7 +2,8 @@ package cn.com.demo.pojo;
 
 import java.util.HashMap;
 
-import cn.com.demo.shiro.constants.RestConst;
+import cn.com.demo.pojo.constants.RestConst;
+
 
 /**
  * The type RestResult.

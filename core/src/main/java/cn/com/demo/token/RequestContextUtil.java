@@ -1,4 +1,4 @@
-package cn.com.demo.utils.token;
+package cn.com.demo.token;
 
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Strings;

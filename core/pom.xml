@@ -13,6 +13,14 @@
     <artifactId>core</artifactId>
     <packaging>war</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.com</groupId>
+            <artifactId>base</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <finalName>${artifactId}</finalName>
         <resources>
