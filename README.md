@@ -8,3 +8,4 @@
 + 发布
   阿里云服务器支撑 + docker + jenkins
 + 打包命令mvn clean package -U -Dmaven.test.skip=true
++ 日志查看 docker logs -f [容器名称] [--tail 300(可加，查看最近300行的日志)]
