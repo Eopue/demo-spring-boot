@@ -70,7 +70,7 @@
     </dependencies>
 
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>ROOT</finalName>
         <resources>
             <resource>
                 <directory>src/main/java</directory>
