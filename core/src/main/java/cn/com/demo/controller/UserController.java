@@ -74,9 +74,7 @@ public class UserController {
 
     @PostMapping("/login")
     public RestResult login(@RequestBody User user) {
-        RestResult restResult = userService.login(user);
-
-        return new RestResult(restResult);
+        return userService.login(user);
     }
 
     @PostMapping("/logout")
